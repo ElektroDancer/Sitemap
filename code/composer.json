@@ -1,0 +1,11 @@
+{
+  "name": "Sitemap",
+  "description": "Ein Sitemap Generator.",
+  "autoload": {
+    "classmap": ["src/"]
+  },
+  "require": {
+    "ext-mbstring": "*"
+  },
+  "require-dev": {}
+}
