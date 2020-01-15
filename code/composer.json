@@ -1,11 +1,13 @@
 {
   "name": "Sitemap",
-  "description": "Ein Sitemap Generator.",
+  "description": "A sitemap generator written in PHP",
   "autoload": {
     "classmap": ["src/"]
   },
   "require": {
     "ext-mbstring": "*"
   },
-  "require-dev": {}
+  "require-dev": {
+    "phpunit/phpunit": "^8"
+  }
 }

@@ -10,4 +10,4 @@ RUN docker-php-ext-enable xdebug
 
 WORKDIR /var/www/html
 
-CMD vendor/bin/phpunit --coverage-html public/reports tests/ --stderr
+CMD vendor/bin/phpunit --coverage-html tests/reports tests/ --stderr
