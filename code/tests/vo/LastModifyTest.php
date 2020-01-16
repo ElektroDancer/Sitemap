@@ -12,7 +12,7 @@ class LastModifyTest extends TestCase
     {
         $this->assertInstanceOf(
             LastModify::class,
-            LastModify::fromString('2019-02-24T00:16:20+01:00')
+            LastModify::fromString('2020-01-01')
         );
     }
 
@@ -28,7 +28,7 @@ class LastModifyTest extends TestCase
 
     public function testToString()
     {
-        $this->assertIsString((string)LastModify::fromString('2019-02-24T00:16:20+01:00'));
+        $this->assertIsString((string)LastModify::fromString('2020-01-01'));
     }
 
     public function provider()
@@ -37,7 +37,11 @@ class LastModifyTest extends TestCase
             array(1),
             array(true),
             array(false),
-            array(1.6)
+            array(1.6),
+            array('test'),
+            array('01-01-2020'),
+            array('2020-13-01'),
+            array('2020-01-32')
         );
     }
 }
