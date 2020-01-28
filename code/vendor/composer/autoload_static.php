@@ -647,6 +647,8 @@ class ComposerStaticInit5c693680a3d1bc39d9d3153c1cd94fdb
         'sitemap\\LastModify' => __DIR__ . '/../..' . '/src/vo/LastModify.php',
         'sitemap\\PHPVariablesWrapper' => __DIR__ . '/../..' . '/src/PHPVariablesWrapper.php',
         'sitemap\\Path' => __DIR__ . '/../..' . '/src/vo/Path.php',
+        'sitemap\\SitemapCreater' => __DIR__ . '/../..' . '/src/SitemapCreater.php',
+        'sitemap\\SitemapUpdater' => __DIR__ . '/../..' . '/src/SitemapUpdater.php',
         'sitemap\\Url' => __DIR__ . '/../..' . '/src/vo/Url.php',
     );
 

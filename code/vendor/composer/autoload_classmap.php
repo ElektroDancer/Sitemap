@@ -588,5 +588,7 @@ return array(
     'sitemap\\LastModify' => $baseDir . '/src/vo/LastModify.php',
     'sitemap\\PHPVariablesWrapper' => $baseDir . '/src/PHPVariablesWrapper.php',
     'sitemap\\Path' => $baseDir . '/src/vo/Path.php',
+    'sitemap\\SitemapCreater' => $baseDir . '/src/SitemapCreater.php',
+    'sitemap\\SitemapUpdater' => $baseDir . '/src/SitemapUpdater.php',
     'sitemap\\Url' => $baseDir . '/src/vo/Url.php',
 );
