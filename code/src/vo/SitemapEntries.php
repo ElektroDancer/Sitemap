@@ -9,6 +9,10 @@ class SitemapEntries
      */
     private array $value;
 
+    /**
+     * SitemapEntries constructor.
+     * @param mixed $value
+     */
     private function __construct($value)
     {
         $this->ensureIsValid($value);
@@ -32,6 +36,10 @@ class SitemapEntries
         return $this->value;
     }
 
+    /**
+     * @param mixed $value
+     * @throws \InvalidArgumentException
+     */
     private function ensureIsValid($value): void
     {
         if (!is_array($value)) {
