@@ -10,4 +10,21 @@ $timestamp = time();
 $date = date('Y-m-d', $timestamp);
 
 $xml = new SitemapCreater(new \DOMDocument('1.0', 'utf-8'), new PHPVariablesWrapper());
-var_dump($xml->create(Path::fromString('test.xml'), Url::fromString('http://text2.de'), LastModify::fromString($date)));
+$sitemapEntries = SitemapEntries::fromArray(
+    [
+        SitemapEntry::fromParameters(
+            Url::fromString('http://test.de/1'),
+            LastModify::fromString($date)
+        ),
+        SitemapEntry::fromParameters(
+            Url::fromString('http://test.de/2'),
+            LastModify::fromString($date)
+        ),
+        SitemapEntry::fromParameters(
+            Url::fromString('http://test.de/3'),
+            LastModify::fromString($date)
+        )
+    ]
+);
+$path = Path::fromString('test.xml');
+var_dump($xml->create($sitemapEntries, $path));

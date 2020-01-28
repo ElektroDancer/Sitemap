@@ -27,20 +27,21 @@ class SitemapCreater
     }
 
     /**
+     * @param SitemapEntries $entries
      * @param Path $path
-     * @param Url $url
-     * @param LastModify $lastModify
      * @return bool
      */
-    public function create(Path $path, Url $url, LastModify $lastModify): bool
+    public function create(SitemapEntries $entries, Path $path): bool
     {
-        $root = $this->dom->createElement('sitemapindex');
+        $root = $this->dom->createElement('urlset');
         $root->setAttribute('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
         $this->dom->appendChild($root);
 
-        $root->appendChild($entry = $this->dom->createElement('sitemap'));
-        $entry->appendChild($this->dom->createElement('loc', $url));
-        $entry->appendChild($this->dom->createElement('lastmod', $lastModify));
+        for ($i = 0; $i < sizeof($entries->getValue()); $i++) {
+            $root->appendChild($entry = $this->dom->createElement('url'));
+            $entry->appendChild($this->dom->createElement('loc', $entries->getValue()[$i]->getUrl()));
+            $entry->appendChild($this->dom->createElement('lastmod', $entries->getValue()[$i]->getLastModify()));
+        }
 
         try {
             $file = FileHandler::fromParameters($path, $this->variablesWrapper);

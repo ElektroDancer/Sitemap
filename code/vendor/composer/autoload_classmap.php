@@ -589,6 +589,8 @@ return array(
     'sitemap\\PHPVariablesWrapper' => $baseDir . '/src/PHPVariablesWrapper.php',
     'sitemap\\Path' => $baseDir . '/src/vo/Path.php',
     'sitemap\\SitemapCreater' => $baseDir . '/src/SitemapCreater.php',
+    'sitemap\\SitemapEntries' => $baseDir . '/src/vo/SitemapEntries.php',
+    'sitemap\\SitemapEntry' => $baseDir . '/src/vo/SitemapEntry.php',
     'sitemap\\SitemapUpdater' => $baseDir . '/src/SitemapUpdater.php',
     'sitemap\\Url' => $baseDir . '/src/vo/Url.php',
 );
