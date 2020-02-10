@@ -4,11 +4,12 @@ use PHPUnit\Framework\TestCase;
 use sitemap\Url;
 
 /**
+ * Class UrlTest
  * @covers \sitemap\Url
  */
 class UrlTest extends TestCase
 {
-    public function testCreateFromString()
+    public function testCreateFromString(): void
     {
         $this->assertInstanceOf(
             Url::class,
@@ -20,18 +21,18 @@ class UrlTest extends TestCase
      * @param $date
      * @dataProvider provider
      */
-    public function testException($date)
+    public function testException($date): void
     {
         $this->expectException(InvalidArgumentException::class);
         Url::fromString($date);
     }
 
-    public function testToString()
+    public function testToString(): void
     {
         $this->assertIsString((string)Url::fromString('http://test.de'));
     }
 
-    public function provider()
+    public function provider(): array
     {
         return array(
             array(1),

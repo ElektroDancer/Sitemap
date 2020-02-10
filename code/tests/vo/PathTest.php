@@ -4,11 +4,12 @@ use PHPUnit\Framework\TestCase;
 use sitemap\Path;
 
 /**
+ * Class PathTest
  * @covers \sitemap\Path
  */
 class PathTest extends TestCase
 {
-    public function testCreateFromString()
+    public function testCreateFromString(): void
     {
         $this->assertInstanceOf(
             Path::class,
@@ -20,18 +21,18 @@ class PathTest extends TestCase
      * @param $date
      * @dataProvider provider
      */
-    public function testException($date)
+    public function testException($date): void
     {
         $this->expectException(InvalidArgumentException::class);
         Path::fromString($date);
     }
 
-    public function testToString()
+    public function testToString(): void
     {
         $this->assertIsString((string)Path::fromString('../tests/path.txt'));
     }
 
-    public function provider()
+    public function provider(): array
     {
         return array(
             array(1),
