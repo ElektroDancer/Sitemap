@@ -2,4 +2,4 @@
 vendor/
 code/.phpunit.result.cache
 code/composer.lock
-code/tests/reports
+reports/
