@@ -16,7 +16,7 @@ class PHPVariablesWrapper
      */
     public function getFile(Path $path): string
     {
-        $fileContent = file_get_contents(__DIR__ . "/" . $path);
+        $fileContent = file_get_contents(__DIR__ . "PHPVariablesWrapper.php/" . $path);
 
         if (!is_string($fileContent)) {
             throw new \InvalidArgumentException('File could not be found');

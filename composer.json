@@ -3,7 +3,9 @@
   "description": "A sitemap generator written in PHP",
   "license": "GPL-3.0-or-later",
   "autoload": {
-    "classmap": ["src/"]
+    "classmap": [
+      "src/"
+    ]
   },
   "require": {
     "ext-mbstring": "*",
