@@ -2,7 +2,7 @@
 
 namespace sitemap;
 
-use http\Exception\InvalidArgumentException;
+use InvalidArgumentException;
 
 class FileHandler
 {
@@ -45,14 +45,14 @@ class FileHandler
 
     /**
      * @return string
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function load(): string
     {
         try {
             $data = $this->variablesWrapper->getFile($this->path);
-        } catch (\InvalidArgumentException $e) {
-            throw new \InvalidArgumentException('File could not be found');
+        } catch (InvalidArgumentException $e) {
+            throw new InvalidArgumentException('File could not be found');
         }
 
         return $data;
@@ -61,14 +61,14 @@ class FileHandler
     /**
      * @param string $data
      * @return bool
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function save(string $data): bool
     {
         try {
             $this->variablesWrapper->putFile($this->path, $data);
-        } catch (\InvalidArgumentException $e) {
-            throw new \InvalidArgumentException('File could not be written');
+        } catch (InvalidArgumentException $e) {
+            throw new InvalidArgumentException('File could not be written');
         }
 
         return true;

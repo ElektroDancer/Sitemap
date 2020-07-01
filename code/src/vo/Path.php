@@ -2,6 +2,8 @@
 
 namespace sitemap;
 
+use InvalidArgumentException;
+
 class Path
 {
     /**
@@ -38,16 +40,16 @@ class Path
 
     /**
      * @param mixed $value
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     private function ensureIsValid($value): void
     {
         if (!is_string($value)) {
-            throw new \InvalidArgumentException('This is not a string: "' . $value . '"');
+            throw new InvalidArgumentException('This is not a string: "' . $value . '"');
         }
 
         if (mb_strlen($value) > 255) {
-            throw new \InvalidArgumentException('This path is too long: "' . $value . '"');
+            throw new InvalidArgumentException('This path is too long: "' . $value . '"');
         }
     }
 }

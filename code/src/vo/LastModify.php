@@ -2,6 +2,8 @@
 
 namespace sitemap;
 
+use InvalidArgumentException;
+
 class LastModify
 {
     /**
@@ -38,21 +40,21 @@ class LastModify
 
     /**
      * @param mixed $value
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     private function ensureIsValid($value): void
     {
         if (!is_string($value)) {
-            throw new \InvalidArgumentException('This is not a string: "' . $value . '"');
+            throw new InvalidArgumentException('This is not a string: "' . $value . '"');
         }
 
         $dateArray = explode('-', $value);
         if (sizeof($dateArray) == 3) {
             if (!checkdate($dateArray[1], $dateArray[2], $dateArray[0])) {
-                throw new \InvalidArgumentException('This date is not in the correct form: "' . $value . '"');
+                throw new InvalidArgumentException('This date is not in the correct form: "' . $value . '"');
             }
         } else {
-            throw new \InvalidArgumentException('This is not a date: "' . $value . '"');
+            throw new InvalidArgumentException('This is not a date: "' . $value . '"');
         }
     }
 }

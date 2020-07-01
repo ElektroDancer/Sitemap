@@ -2,6 +2,8 @@
 
 namespace sitemap;
 
+use InvalidArgumentException;
+
 class SitemapEntries
 {
     /**
@@ -38,17 +40,17 @@ class SitemapEntries
 
     /**
      * @param mixed $value
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     private function ensureIsValid($value): void
     {
         if (!is_array($value)) {
-            throw new \InvalidArgumentException('The argument is not a array.');
+            throw new InvalidArgumentException('The argument is not a array.');
         }
 
         for ($i = 0; $i < sizeof($value); $i++) {
             if (!is_a($value[$i], 'sitemap\SitemapEntry')) {
-                throw new \InvalidArgumentException('The content of the array is not of type SitemapEntry');
+                throw new InvalidArgumentException('The content of the array is not of type SitemapEntry');
             }
         }
     }
