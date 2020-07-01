@@ -1,6 +1,6 @@
 <?php
 
-namespace sitemap;
+namespace elektrodancer\sitemap;
 
 class Url
 {
