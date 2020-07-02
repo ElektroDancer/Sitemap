@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace elektrodancer\sitemap;
 
@@ -49,7 +50,7 @@ class SitemapEntries
         }
 
         for ($i = 0; $i < sizeof($value); $i++) {
-            if (!is_a($value[$i], 'sitemap\SitemapEntry')) {
+            if (!is_a($value[$i], 'elektrodancer\sitemap\SitemapEntry')) {
                 throw new InvalidArgumentException('The content of the array is not of type SitemapEntry');
             }
         }

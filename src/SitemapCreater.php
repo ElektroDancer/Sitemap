@@ -1,13 +1,16 @@
 <?php
+declare(strict_types=1);
 
 namespace elektrodancer\sitemap;
+
+use DOMDocument;
 
 class SitemapCreater
 {
     /**
-     * @var \DOMDocument
+     * @var DOMDocument
      */
-    private \DOMDocument $dom;
+    private DOMDocument $dom;
     /**
      * @var PHPVariablesWrapper
      */
@@ -15,11 +18,11 @@ class SitemapCreater
 
     /**
      * SitemapCreater constructor.
-     * @param \DOMDocument $dom
+     * @param DOMDocument $dom
      * @param PHPVariablesWrapper $variablesWrapper
      */
     public function __construct(
-        \DOMDocument $dom,
+        DOMDocument $dom,
         PHPVariablesWrapper $variablesWrapper
     ) {
         $this->dom = $dom;
@@ -39,8 +42,8 @@ class SitemapCreater
 
         for ($i = 0; $i < sizeof($entries->getValue()); $i++) {
             $root->appendChild($entry = $this->dom->createElement('url'));
-            $entry->appendChild($this->dom->createElement('loc', $entries->getValue()[$i]->getUrl()));
-            $entry->appendChild($this->dom->createElement('lastmod', $entries->getValue()[$i]->getLastModify()));
+            $entry->appendChild($this->dom->createElement('loc', (string) $entries->getValue()[$i]->getUrl()));
+            $entry->appendChild($this->dom->createElement('lastmod', (string) $entries->getValue()[$i]->getLastModify()));
         }
 
         try {

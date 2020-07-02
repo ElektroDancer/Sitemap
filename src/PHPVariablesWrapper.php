@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace elektrodancer\sitemap;
 
@@ -34,7 +35,7 @@ class PHPVariablesWrapper
      */
     public function putFile(Path $path, string $data): void
     {
-        $fileSize = file_put_contents($path, $data);
+        $fileSize = file_put_contents((string) $path, $data);
 
         if (!is_int($fileSize)) {
             throw new InvalidArgumentException('File could not be written');

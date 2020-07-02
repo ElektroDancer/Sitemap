@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace elektrodancer\sitemap;
 
@@ -50,7 +51,7 @@ class LastModify
 
         $dateArray = explode('-', $value);
         if (sizeof($dateArray) == 3) {
-            if (!checkdate($dateArray[1], $dateArray[2], $dateArray[0])) {
+            if (!checkdate((int) $dateArray[1], (int) $dateArray[2], (int) $dateArray[0])) {
                 throw new InvalidArgumentException('This date is not in the correct form: "' . $value . '"');
             }
         } else {
