@@ -7,42 +7,24 @@ use InvalidArgumentException;
 
 class Path
 {
-    /**
-     * @var string
-     */
     private string $value;
 
-    /**
-     * Path constructor.
-     * @param $value
-     */
     private function __construct($value)
     {
         $this->ensureIsValid($value);
         $this->value = $value;
     }
 
-    /**
-     * @param $value
-     * @return Path
-     */
     public static function fromString($value): Path
     {
         return new Path($value);
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
-        return (string)$this->value;
+        return $this->value;
     }
 
-    /**
-     * @param mixed $value
-     * @throws InvalidArgumentException
-     */
     private function ensureIsValid($value): void
     {
         if (!is_string($value)) {

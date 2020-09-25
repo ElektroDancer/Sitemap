@@ -7,50 +7,40 @@ use InvalidArgumentException;
 
 class SitemapEntries
 {
-    /**
-     * @var array
-     */
     private array $value;
-
-    /**
-     * SitemapEntries constructor.
-     * @param mixed $value
-     */
+    
     private function __construct($value)
     {
-        $this->ensureIsValid($value);
         $this->value = $value;
     }
 
     /**
-     * @param $value
-     * @return SitemapEntries
+     * @throws InvalidArgumentException
      */
     public static function fromArray($value): SitemapEntries
     {
+        self::ensureValueIsArray($value);
+        self::ensureValueContentIsSitemapEntry($value);
+        
         return new SitemapEntries($value);
     }
-
-    /**
-     * @return array
-     */
+    
     public function getValue(): array
     {
         return $this->value;
     }
-
-    /**
-     * @param mixed $value
-     * @throws InvalidArgumentException
-     */
-    private function ensureIsValid($value): void
+    
+    private static function ensureValueIsArray($value): void
     {
         if (!is_array($value)) {
             throw new InvalidArgumentException('The argument is not a array.');
         }
+    }
 
-        for ($i = 0; $i < sizeof($value); $i++) {
-            if (!is_a($value[$i], 'elektrodancer\sitemap\SitemapEntry')) {
+    private static function ensureValueContentIsSitemapEntry($value): void
+    {
+        foreach ($value as $entry) {
+            if (!$entry instanceof SitemapEntry) {
                 throw new InvalidArgumentException('The content of the array is not of type SitemapEntry');
             }
         }

@@ -10,9 +10,11 @@
   "require": {
     "ext-mbstring": "*",
     "ext-dom": "*",
-    "ext-pdo": "*"
+    "ext-pdo": "*",
+    "lazypdo/lazypdo": "^2.0"
   },
   "require-dev": {
+    "roave/security-advisories": "dev-master",
     "phpunit/phpunit": "^8"
   }
 }

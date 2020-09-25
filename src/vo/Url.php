@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace elektrodancer\sitemap;
 
+use InvalidArgumentException;
+
 class Url
 {
     /**
@@ -39,12 +41,12 @@ class Url
 
     /**
      * @param mixed $value
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     private function ensureIsValid($value): void
     {
         if (!is_string($value)) {
-            throw new \InvalidArgumentException('This is not a string: "' . $value . '"');
+            throw new InvalidArgumentException('This is not a string: "' . $value . '"');
         }
     }
 }

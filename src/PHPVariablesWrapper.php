@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace elektrodancer\sitemap;
@@ -6,17 +7,10 @@ namespace elektrodancer\sitemap;
 use InvalidArgumentException;
 
 /**
- * Class PHPVariablesWrapper
- * @package sitemap
  * @codeCoverageIgnore
  */
 class PHPVariablesWrapper
 {
-    /**
-     * @param Path $path
-     * @return string
-     * @throws InvalidArgumentException
-     */
     public function getFile(Path $path): string
     {
         $fileContent = file_get_contents(__DIR__ . "/" . $path);
@@ -28,14 +22,9 @@ class PHPVariablesWrapper
         return $fileContent;
     }
 
-    /**
-     * @param Path $path
-     * @param string $data
-     * @throws InvalidArgumentException
-     */
     public function putFile(Path $path, string $data): void
     {
-        $fileSize = file_put_contents((string) $path, $data);
+        $fileSize = file_put_contents((string)$path, $data);
 
         if (!is_int($fileSize)) {
             throw new InvalidArgumentException('File could not be written');

@@ -1,50 +1,35 @@
 <?php
+
 declare(strict_types=1);
 
 namespace elektrodancer\sitemap;
 
-use PDO;
+use LazyPDO\LazyPDO;
 
 class SQLiteConnector
 {
-    /**
-     * @var PDO
-     */
-    private PDO $connection;
+    private LazyPDO $connection;
 
-    /**
-     * SQLiteConnector constructor.
-     * @param string $databaseName
-     */
     public function __construct(string $databaseName)
     {
         $path = $databaseName . '.sqlite';
 
         if (!file_exists($path)) {
-            echo 'if';
-            $connection = new PDO('sqlite:' . $path);
+            $connection = new LazyPDO('sqlite:' . $path);
             $this->createDatabase($connection);
         } else {
-            echo 'else';
-            $connection = new PDO('sqlite:', $path);
+            $connection = new LazyPDO('sqlite:' . $path);
         }
 
-        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $this->connection = $connection;
     }
 
-    /**
-     * @return PDO
-     */
-    public function getConnection(): PDO
+    public function getConnection(): LazyPDO
     {
         return $this->connection;
     }
 
-    /**
-     * @param PDO $connection
-     */
-    private function createDatabase(PDO $connection): void
+    private function createDatabase(LazyPDO $connection): void
     {
         $connection->exec(
             'CREATE TABLE page
