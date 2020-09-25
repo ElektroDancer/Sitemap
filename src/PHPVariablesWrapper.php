@@ -24,7 +24,7 @@ class PHPVariablesWrapper
 
     public function putFile(Path $path, string $data): void
     {
-        $fileSize = file_put_contents((string)$path, $data);
+        $fileSize = file_put_contents(__DIR__ . "/" . $path, $data);
 
         if (!is_int($fileSize)) {
             throw new InvalidArgumentException('File could not be written');

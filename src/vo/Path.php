@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace elektrodancer\sitemap;
@@ -11,12 +12,17 @@ class Path
 
     private function __construct($value)
     {
-        $this->ensureIsValid($value);
         $this->value = $value;
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     public static function fromString($value): Path
     {
+        self::ensureIsString($value);
+        self::ensureStringIsTooLong($value);
+
         return new Path($value);
     }
 
@@ -25,14 +31,17 @@ class Path
         return $this->value;
     }
 
-    private function ensureIsValid($value): void
+    private static function ensureIsString($value): void
     {
         if (!is_string($value)) {
-            throw new InvalidArgumentException('This is not a string: "' . $value . '"');
+            throw new InvalidArgumentException('The value of Path is not a string.');
         }
+    }
 
+    private static function ensureStringIsTooLong($value): void
+    {
         if (mb_strlen($value) > 255) {
-            throw new InvalidArgumentException('This path is too long: "' . $value . '"');
+            throw new InvalidArgumentException('This path is too long.');
         }
     }
 }

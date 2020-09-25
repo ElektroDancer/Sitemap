@@ -15,7 +15,7 @@ class SQLitePageLoader
         $this->pdo = $connector->getConnection();
     }
 
-    public function load(): SitemapEntries
+    public function load(): SitemapCollection
     {
         $statement = $this->pdo->prepare($this->getPreparedStatement());
         $statement->execute();
@@ -27,7 +27,7 @@ class SQLitePageLoader
         return 'SELECT id, url, last_modify FROM page';
     }
 
-    private function getEntry($result): SitemapEntries
+    private function getEntry($result): SitemapCollection
     {
         $array = [];
 
@@ -38,6 +38,6 @@ class SQLitePageLoader
             );
         }
 
-        return SitemapEntries::fromArray($array);
+        return SitemapCollection::fromArray($array);
     }
 }

@@ -5,7 +5,7 @@ namespace elektrodancer\sitemap;
 
 use InvalidArgumentException;
 
-class SitemapEntries
+class SitemapCollection
 {
     private array $value;
     
@@ -17,12 +17,12 @@ class SitemapEntries
     /**
      * @throws InvalidArgumentException
      */
-    public static function fromArray($value): SitemapEntries
+    public static function fromArray($value): SitemapCollection
     {
         self::ensureValueIsArray($value);
         self::ensureValueContentIsSitemapEntry($value);
         
-        return new SitemapEntries($value);
+        return new SitemapCollection($value);
     }
     
     public function getValue(): array

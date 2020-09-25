@@ -7,46 +7,32 @@ use InvalidArgumentException;
 
 class Url
 {
-    /**
-     * @var string
-     */
     private string $value;
 
-    /**
-     * Url constructor.
-     * @param mixed $value
-     */
     private function __construct($value)
     {
-        $this->ensureIsValid($value);
         $this->value = $value;
     }
 
     /**
-     * @param mixed $value
-     * @return Url
+     * @throws InvalidArgumentException
      */
     public static function fromString($value): Url
     {
+        self::ensureIsString($value);
+
         return new Url($value);
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
-        return (string)$this->value;
+        return $this->value;
     }
 
-    /**
-     * @param mixed $value
-     * @throws InvalidArgumentException
-     */
-    private function ensureIsValid($value): void
+    private static function ensureIsString($value): void
     {
         if (!is_string($value)) {
-            throw new InvalidArgumentException('This is not a string: "' . $value . '"');
+            throw new InvalidArgumentException('The value of Url is not a string.');
         }
     }
 }

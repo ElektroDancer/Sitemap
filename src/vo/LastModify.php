@@ -8,55 +8,46 @@ use InvalidArgumentException;
 
 class LastModify
 {
-    /**
-     * @var string
-     */
     private string $value;
 
-    /**
-     * LastModify constructor.
-     * @param mixed $value
-     */
     private function __construct($value)
     {
-        $this->ensureIsValid($value);
         $this->value = $value;
     }
 
     /**
-     * @param mixed $value
-     * @return LastModify
+     * @throws InvalidArgumentException
      */
     public static function fromString($value): LastModify
     {
+        self::ensureIsString($value);
+        self::ensureIsCorrectDate($value);
+
         return new LastModify($value);
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
-        return (string)$this->value;
+        return $this->value;
     }
 
-    /**
-     * @param mixed $value
-     * @throws InvalidArgumentException
-     */
-    private function ensureIsValid($value): void
+    private static function ensureIsString($value): void
     {
         if (!is_string($value)) {
-            throw new InvalidArgumentException('This is not a string: "' . $value . '"');
+            throw new InvalidArgumentException('The value of LastModify is not a string.');
         }
+    }
 
+    private static function ensureIsCorrectDate($value): void
+    {
         $dateArray = explode('-', $value);
+
         if (count($dateArray) === 3) {
             if (!checkdate((int)$dateArray[1], (int)$dateArray[2], (int)$dateArray[0])) {
-                throw new InvalidArgumentException('This date is not in the correct form: "' . $value . '"');
+                throw new InvalidArgumentException('The value of LastModify is not in the correct date form.');
             }
         } else {
-            throw new InvalidArgumentException('This is not a date: "' . $value . '"');
+            throw new InvalidArgumentException('The value of LastModify is not a date.');
         }
     }
 }

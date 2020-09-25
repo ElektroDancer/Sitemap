@@ -1,26 +1,16 @@
 <?php
+
 declare(strict_types=1);
 
 namespace elektrodancer\sitemap;
 
 use DOMDocument;
 
-class SitemapCreater
+class SitemapCreator
 {
-    /**
-     * @var DOMDocument
-     */
     private DOMDocument $dom;
-    /**
-     * @var PHPVariablesWrapper
-     */
     private PHPVariablesWrapper $variablesWrapper;
 
-    /**
-     * SitemapCreater constructor.
-     * @param DOMDocument $dom
-     * @param PHPVariablesWrapper $variablesWrapper
-     */
     public function __construct(
         DOMDocument $dom,
         PHPVariablesWrapper $variablesWrapper
@@ -29,21 +19,16 @@ class SitemapCreater
         $this->variablesWrapper = $variablesWrapper;
     }
 
-    /**
-     * @param SitemapEntries $entries
-     * @param Path $path
-     * @return bool
-     */
-    public function create(SitemapEntries $entries, Path $path): bool
+    public function create(SitemapCollection $entries, Path $path): bool
     {
         $root = $this->dom->createElement('urlset');
         $root->setAttribute('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
         $this->dom->appendChild($root);
 
-        for ($i = 0; $i < sizeof($entries->getValue()); $i++) {
+        foreach ($entries->getValue() as $value) {
             $root->appendChild($entry = $this->dom->createElement('url'));
-            $entry->appendChild($this->dom->createElement('loc', (string) $entries->getValue()[$i]->getUrl()));
-            $entry->appendChild($this->dom->createElement('lastmod', (string) $entries->getValue()[$i]->getLastModify()));
+            $entry->appendChild($this->dom->createElement('loc', (string)$value->getUrl()));
+            $entry->appendChild($this->dom->createElement('lastmod', (string)$value->getLastModify()));
         }
 
         try {
