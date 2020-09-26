@@ -31,15 +31,18 @@ class SQLiteConnector
 
     private function createDatabase(LazyPDO $connection): void
     {
-        $connection->exec(
-            'CREATE TABLE page
+        $connection->exec($this->getCreateDatabaseStatement());
+    }
+
+    private function getCreateDatabaseStatement(): string
+    {
+        return 'CREATE TABLE page
                         (
                             id INTEGER  
                                 CONSTRAINT page_pk
                                     PRIMARY KEY autoincrement,
                             url VARCHAR(255),
                             last_modify VARCHAR(10)
-                        )'
-        );
+                        )';
     }
 }
