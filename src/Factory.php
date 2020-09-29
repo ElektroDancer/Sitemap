@@ -16,12 +16,50 @@ class Factory
         );
     }
 
-    public function createSitemapUpdater(): SitemapUpdater
+    public function createSitemapUpdater(string $databaseName): SitemapUpdater
     {
         return new SitemapUpdater(
-            $this->createDOMDocument(),
-            $this->createPHPVariablesWrapper()
+            $this->createSQLitePageLoader($databaseName),
+            $this->createSQLitePageUpdaterById($databaseName)
         );
+    }
+
+    public function createSitemapWriter(string $databaseName): SitemapWriter
+    {
+        return new SitemapWriter(
+            $this->createSQLitePageWriter($databaseName)
+        );
+    }
+
+    public function createSitemapEntryBuilder(): SitemapEntryBuilder
+    {
+        return new SitemapEntryBuilder();
+    }
+
+    private function createSQLitePageLoader(string $databaseName): SQLitePageLoader
+    {
+        return new SQLitePageLoader(
+            $this->createSQLiteConnector($databaseName)
+        );
+    }
+
+    private function createSQLitePageUpdaterById(string $databaseName): SQLitePageUpdaterById
+    {
+        return new SQLitePageUpdaterById(
+            $this->createSQLiteConnector($databaseName)
+        );
+    }
+
+    private function createSQLitePageWriter(string $databaseName): SQLitePageWriter
+    {
+        return new SQLitePageWriter(
+            $this->createSQLiteConnector($databaseName)
+        );
+    }
+
+    private function createSQLiteConnector(string $databaseName): SQLiteConnector
+    {
+        return new SQLiteConnector($databaseName);
     }
 
     private function createDOMDocument(): DOMDocument

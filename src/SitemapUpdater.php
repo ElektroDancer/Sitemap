@@ -4,22 +4,20 @@ declare(strict_types=1);
 
 namespace elektrodancer\sitemap;
 
-use DOMDocument;
-
 class SitemapUpdater
 {
-    private DOMDocument $dom;
-    private PHPVariablesWrapper $variablesWrapper;
+    private SQLitePageLoader $loader;
+    private SQLitePageUpdaterById $updater;
 
     public function __construct(
-        DOMDocument $dom,
-        PHPVariablesWrapper $variablesWrapper
+        SQLitePageLoader $loader,
+        SQLitePageUpdaterById $updater
     ) {
-        $this->dom = $dom;
-        $this->variablesWrapper = $variablesWrapper;
+        $this->loader = $loader;
+        $this->updater = $updater;
     }
 
-    public function update(): bool
+    public function update(SitemapEntry $entry): bool
     {
         return false;
     }
