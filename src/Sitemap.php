@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace elektrodancer\sitemap;
 
-use InvalidArgumentException;
-
 class Sitemap
 {
     private Path $path;
@@ -13,7 +11,7 @@ class Sitemap
     private SitemapUpdater $updater;
 
     /**
-     * @throws InvalidArgumentException
+     * @throws InvalidPathException
      */
     public function __construct(string $path)
     {
@@ -24,12 +22,23 @@ class Sitemap
         $this->updater = $factory->createSitemapUpdater();
     }
 
-    public function create(SitemapCollection $collection): bool
+    public function create(): bool
     {
-        return $this->creator->create($collection, $this->path);
+        return false;
     }
 
-    public function update(SitemapEntry $entry): bool
+    /**
+     * @throws InvalidURLException
+     */
+    public function add(string $url): bool
+    {
+        return false;
+    }
+
+    /**
+     * @throws InvalidURLException
+     */
+    public function update(string $url): bool
     {
         return $this->updater->update();
     }

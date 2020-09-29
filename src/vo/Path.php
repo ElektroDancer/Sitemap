@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace elektrodancer\sitemap;
 
-use InvalidArgumentException;
-
 class Path
 {
     private string $value;
@@ -16,7 +14,7 @@ class Path
     }
 
     /**
-     * @throws InvalidArgumentException
+     * @throws InvalidPathException
      */
     public static function fromString($value): Path
     {
@@ -34,14 +32,14 @@ class Path
     private static function ensureIsString($value): void
     {
         if (!is_string($value)) {
-            throw new InvalidArgumentException('The value of Path is not a string.');
+            throw new InvalidPathException('The value of Path is not a string.');
         }
     }
 
     private static function ensureStringIsTooLong($value): void
     {
         if (mb_strlen($value) > 255) {
-            throw new InvalidArgumentException('This path is too long.');
+            throw new InvalidPathException('This path is too long.');
         }
     }
 }

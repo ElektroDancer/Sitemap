@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace elektrodancer\sitemap;
 
 use InvalidArgumentException;
+use sitemap\InvalidURLException;
 
 class Url
 {
@@ -32,7 +33,7 @@ class Url
     private static function ensureIsString($value): void
     {
         if (!is_string($value)) {
-            throw new InvalidArgumentException('The value of Url is not a string.');
+            throw new InvalidURLException('The value of Url is not a string.');
         }
     }
 }
