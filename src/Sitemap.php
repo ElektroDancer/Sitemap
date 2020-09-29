@@ -12,13 +12,16 @@ class Sitemap
     private SitemapCreator $creator;
     private SitemapUpdater $updater;
     private SitemapWriter $writer;
+    private SitemapRemover $remover;
     private SitemapEntryBuilder $builder;
 
     /**
      * @throws InvalidPathException
      */
-    public function __construct(string $path, string $name)
-    {
+    public function __construct(
+        string $path,
+        string $name
+    ) {
         $this->path = Path::fromString($path);
         $this->name = $name;
 
@@ -26,6 +29,7 @@ class Sitemap
         $this->creator = $factory->createSitemapCreator();
         $this->updater = $factory->createSitemapUpdater($name);
         $this->writer = $factory->createSitemapWriter($name);
+        $this->remover = $factory->createSitemapRemover($name);
         $this->builder = $factory->createSitemapEntryBuilder();
     }
 
@@ -64,6 +68,6 @@ class Sitemap
 
     public function remove(string $url): bool
     {
-        return false;
+        return $this->remover->remove();
     }
 }

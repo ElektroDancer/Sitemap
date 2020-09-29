@@ -16,6 +16,14 @@ class Factory
         );
     }
 
+    public function createSitemapRemover(string $databaseName): SitemapRemover
+    {
+        return new SitemapRemover(
+            $this->createSQLitePageLoader($databaseName),
+            $this->createSQLitePageRemoverById($databaseName)
+        );
+    }
+
     public function createSitemapUpdater(string $databaseName): SitemapUpdater
     {
         return new SitemapUpdater(
@@ -36,9 +44,21 @@ class Factory
         return new SitemapEntryBuilder();
     }
 
+    private function createSQLiteConnector(string $databaseName): SQLiteConnector
+    {
+        return new SQLiteConnector($databaseName);
+    }
+
     private function createSQLitePageLoader(string $databaseName): SQLitePageLoader
     {
         return new SQLitePageLoader(
+            $this->createSQLiteConnector($databaseName)
+        );
+    }
+
+    private function createSQLitePageRemoverById(string $databaseName): SQLitePageRemoverById
+    {
+        return new SQLitePageRemoverById(
             $this->createSQLiteConnector($databaseName)
         );
     }
@@ -55,11 +75,6 @@ class Factory
         return new SQLitePageWriter(
             $this->createSQLiteConnector($databaseName)
         );
-    }
-
-    private function createSQLiteConnector(string $databaseName): SQLiteConnector
-    {
-        return new SQLiteConnector($databaseName);
     }
 
     private function createDOMDocument(): DOMDocument
