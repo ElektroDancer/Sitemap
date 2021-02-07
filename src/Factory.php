@@ -32,13 +32,6 @@ class Factory
         );
     }
 
-    public function createSitemapWriter(string $databaseName): SitemapWriter
-    {
-        return new SitemapWriter(
-            $this->createSQLitePageWriter($databaseName)
-        );
-    }
-
     public function createSitemapEntryBuilder(): SitemapEntryBuilder
     {
         return new SitemapEntryBuilder();
@@ -52,7 +45,8 @@ class Factory
     private function createSQLitePageLoader(string $databaseName): SQLitePageLoader
     {
         return new SQLitePageLoader(
-            $this->createSQLiteConnector($databaseName)
+            $this->createSQLiteConnector($databaseName),
+            $this->createSitemapCollectionBuilder()
         );
     }
 
@@ -70,7 +64,7 @@ class Factory
         );
     }
 
-    private function createSQLitePageWriter(string $databaseName): SQLitePageWriter
+    public function createSQLitePageWriter(string $databaseName): SQLitePageWriter
     {
         return new SQLitePageWriter(
             $this->createSQLiteConnector($databaseName)
@@ -85,5 +79,10 @@ class Factory
     private function createPHPVariablesWrapper(): PHPVariablesWrapper
     {
         return new PHPVariablesWrapper();
+    }
+
+    private function createSitemapCollectionBuilder(): SitemapCollectionBuilder
+    {
+        return new SitemapCollectionBuilder();
     }
 }

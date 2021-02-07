@@ -11,7 +11,7 @@ class Sitemap
 
     private SitemapCreator $creator;
     private SitemapUpdater $updater;
-    private SitemapWriter $writer;
+    private SQLitePageWriter $writer;
     private SitemapRemover $remover;
     private SitemapEntryBuilder $builder;
 
@@ -28,7 +28,7 @@ class Sitemap
         $factory = new Factory();
         $this->creator = $factory->createSitemapCreator();
         $this->updater = $factory->createSitemapUpdater($name);
-        $this->writer = $factory->createSitemapWriter($name);
+        $this->writer = $factory->createSQLitePageWriter($name);
         $this->remover = $factory->createSitemapRemover($name);
         $this->builder = $factory->createSitemapEntryBuilder();
     }
@@ -39,7 +39,7 @@ class Sitemap
     }
 
     /**
-     * @throws InvalidURLException
+     * @throws InvalidUrlException
      */
     public function add(string $url): bool
     {
@@ -49,11 +49,11 @@ class Sitemap
             return false;
         }
 
-        return $this->writer->write($entry);
+        return $this->writer->save($entry);
     }
 
     /**
-     * @throws InvalidURLException
+     * @throws InvalidUrlException
      */
     public function update(string $url): bool
     {

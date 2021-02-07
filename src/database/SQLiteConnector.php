@@ -38,10 +38,9 @@ class SQLiteConnector
     {
         return 'CREATE TABLE page
                         (
-                            id INTEGER  
+                            url VARCHAR(255)
                                 CONSTRAINT page_pk
                                     PRIMARY KEY autoincrement,
-                            url VARCHAR(255),
                             last_modify VARCHAR(10)
                         )';
     }

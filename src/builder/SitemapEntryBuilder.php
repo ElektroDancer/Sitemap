@@ -7,7 +7,7 @@ namespace elektrodancer\sitemap;
 class SitemapEntryBuilder
 {
     /**
-     * @throws InvalidURLException
+     * @throws InvalidUrlException
      * @throws InvalidLastModifyException
      */
     public function build(string $url): SitemapEntry

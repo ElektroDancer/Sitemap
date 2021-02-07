@@ -19,6 +19,8 @@ class SitemapUpdater
 
     public function update(SitemapEntry $entry): bool
     {
+        $collection = $this->loader->load();
+
         return false;
     }
 }

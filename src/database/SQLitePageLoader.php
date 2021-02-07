@@ -8,36 +8,24 @@ use PDO;
 
 class SQLitePageLoader
 {
+    private SitemapCollectionBuilder $builder;
     private LazyPDO $pdo;
 
-    public function __construct(SQLiteConnector $connector)
+    public function __construct(SQLiteConnector $connector, SitemapCollectionBuilder $builder)
     {
         $this->pdo = $connector->getConnection();
+        $this->builder = $builder;
     }
 
     public function load(): SitemapCollection
     {
         $statement = $this->pdo->prepare($this->getPreparedStatement());
         $statement->execute();
-        return $this->getEntry($statement->fetchAll(PDO::FETCH_ASSOC));
+        return $this->builder->build($statement->fetchAll(PDO::FETCH_ASSOC));
     }
 
     private function getPreparedStatement(): string
     {
-        return 'SELECT id, url, last_modify FROM page';
-    }
-
-    private function getEntry($result): SitemapCollection
-    {
-        $array = [];
-
-        foreach ($result as $entry) {
-            $array[] = SitemapEntry::fromParameters(
-                Url::fromString($entry['url']),
-                LastModify::fromString($entry['last_modify'])
-            );
-        }
-
-        return SitemapCollection::fromArray($array);
+        return 'SELECT url, last_modify FROM page';
     }
 }

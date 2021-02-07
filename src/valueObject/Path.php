@@ -32,14 +32,19 @@ class Path
     private static function ensureIsString($value): void
     {
         if (!is_string($value)) {
-            throw new InvalidPathException('The value of Path is not a string.');
+            throw new InvalidPathException('The value of Path is not a string');
         }
     }
 
     private static function ensureStringIsTooLong($value): void
     {
         if (mb_strlen($value) > 255) {
-            throw new InvalidPathException('This path is too long.');
+            throw new InvalidPathException('This path is too long');
         }
+    }
+
+    public function asString(): string
+    {
+        return $this->value;
     }
 }

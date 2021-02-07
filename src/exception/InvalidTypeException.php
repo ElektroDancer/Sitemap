@@ -6,7 +6,7 @@ namespace elektrodancer\sitemap;
 
 use InvalidArgumentException;
 
-class InvalidURLException extends InvalidArgumentException
+class InvalidTypeException extends InvalidArgumentException
 {
 
 }

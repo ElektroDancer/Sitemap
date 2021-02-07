@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace elektrodancer\sitemap;
 
-use InvalidArgumentException;
-
 class SitemapCollection
 {
     private array $value;
@@ -15,7 +13,7 @@ class SitemapCollection
     }
 
     /**
-     * @throws InvalidArgumentException
+     * @throws InvalidSitemapCollectionException
      */
     public static function fromArray($value): SitemapCollection
     {
@@ -33,7 +31,7 @@ class SitemapCollection
     private static function ensureValueIsArray($value): void
     {
         if (!is_array($value)) {
-            throw new InvalidArgumentException('The argument is not a array.');
+            throw new InvalidSitemapCollectionException('The argument is not a array.');
         }
     }
 
@@ -41,7 +39,7 @@ class SitemapCollection
     {
         foreach ($value as $entry) {
             if (!$entry instanceof SitemapEntry) {
-                throw new InvalidArgumentException('The content of the array is not of type SitemapEntry');
+                throw new InvalidSitemapCollectionException('The content of the array is not of type SitemapEntry');
             }
         }
     }
