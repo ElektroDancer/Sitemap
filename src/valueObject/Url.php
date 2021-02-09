@@ -30,7 +30,12 @@ class Url
     private static function ensureIsString($value): void
     {
         if (!is_string($value)) {
-            throw new InvalidUrlException('The value of Url is not a string.');
+            throw new InvalidUrlException('The value of Url is not a string');
         }
+    }
+
+    public function asString(): string
+    {
+        return $this->value;
     }
 }

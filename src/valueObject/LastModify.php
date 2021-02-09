@@ -48,4 +48,9 @@ class LastModify
             throw new InvalidLastModifyException('The value of LastModify is not a date.');
         }
     }
+
+    public function asString(): string
+    {
+        return $this->value;
+    }
 }
