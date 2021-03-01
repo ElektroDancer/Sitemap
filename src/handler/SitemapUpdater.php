@@ -21,6 +21,16 @@ class SitemapUpdater
     {
         $collection = $this->loader->load();
 
-        return false;
+        foreach ($collection->asArray() as $databaseEntry) {
+            if ($entry->getUrl()->asString() === $databaseEntry->getUrl()->asString()) {
+                $entry->setId($databaseEntry->getId());
+            }
+        }
+
+        if ($entry->getId()->isNull()) {
+            throw new SitemapUpdateException('given url could not find in database');
+        }
+
+        return $this->updater->update($entry);
     }
 }

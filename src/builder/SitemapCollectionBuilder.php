@@ -16,6 +16,7 @@ class SitemapCollectionBuilder
 
         foreach ($entries as $entry) {
             $array[] = SitemapEntry::fromParameters(
+                Id::fromInt($entry['id']),
                 Url::fromString($entry['url']),
                 LastModify::fromString($entry['last_modify'])
             );

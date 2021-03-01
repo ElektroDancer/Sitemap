@@ -26,7 +26,7 @@ class SitemapCreator
         $root->setAttribute('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
         $this->dom->appendChild($root);
 
-        foreach ($collection->getValue() as $value) {
+        foreach ($collection->asArray() as $value) {
             $root->appendChild($entry = $this->dom->createElement('url'));
             $entry->appendChild($this->dom->createElement('loc', (string)$value->getUrl()));
             $entry->appendChild($this->dom->createElement('lastmod', (string)$value->getLastModify()));

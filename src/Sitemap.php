@@ -44,6 +44,7 @@ class Sitemap
 
     /**
      * @throws InvalidUrlException
+     * @throws SitemapUpdateException
      */
     public function update(string $url): bool
     {

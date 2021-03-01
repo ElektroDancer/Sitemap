@@ -26,6 +26,6 @@ class PageLoader
 
     private function getPreparedStatement(): string
     {
-        return 'SELECT url, last_modify FROM page';
+        return 'SELECT id, url, last_modify FROM page';
     }
 }

@@ -23,7 +23,7 @@ class SitemapCollection
         return new SitemapCollection($value);
     }
     
-    public function getValue(): array
+    public function asArray(): array
     {
         return $this->value;
     }

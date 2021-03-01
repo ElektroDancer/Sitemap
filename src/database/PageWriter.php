@@ -18,8 +18,8 @@ class PageWriter
     public function save(SitemapEntry $entry): bool
     {
         $statement = $this->pdo->prepare($this->getPreparedStatement());
-        $statement->bindValue(':url', $entry->getUrl());
-        $statement->bindValue(':last_modify', $entry->getLastModify());
+        $statement->bindValue(':url', $entry->getUrl()->asString());
+        $statement->bindValue(':last_modify', $entry->getLastModify()->asString());
 
         return $statement->execute();
     }

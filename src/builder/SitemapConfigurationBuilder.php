@@ -10,7 +10,7 @@ class SitemapConfigurationBuilder
         string $name,
         string $databaseTyp,
         string $path,
-        ?string $databaseName,
+        ?string $databaseName = null,
         ?int $databasePort = null,
         ?string $databaseHost = null,
         ?string $databaseUsername = null,

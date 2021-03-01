@@ -15,12 +15,12 @@ class PageUpdaterById
         $this->pdo = $connector->getConnection();
     }
 
-    public function update(SitemapEntry $entry, int $id): bool
+    public function update(SitemapEntry $entry): bool
     {
         $statement = $this->pdo->prepare($this->getPreparedStatement());
-        $statement->bindValue(':id', $id);
-        $statement->bindValue(':url', $entry->getUrl());
-        $statement->bindValue(':last_modify', $entry->getLastModify());
+        $statement->bindValue(':id', $entry->getId()->asInt());
+        $statement->bindValue(':url', $entry->getUrl()->asString());
+        $statement->bindValue(':last_modify', $entry->getLastModify()->asString());
 
         return $statement->execute();
     }
