@@ -6,11 +6,11 @@ namespace elektrodancer\sitemap;
 
 use LazyPDO\LazyPDO;
 
-class SQLitePageRemoverById
+class PageRemoverById
 {
     private LazyPDO $pdo;
 
-    public function __construct(SQLiteConnector $connector)
+    public function __construct(Connector $connector)
     {
         $this->pdo = $connector->getConnection();
     }

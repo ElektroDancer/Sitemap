@@ -6,12 +6,12 @@ namespace elektrodancer\sitemap;
 
 class SitemapRemover
 {
-    private SQLitePageLoader $loader;
-    private SQLitePageRemoverById $remover;
+    private PageLoader $loader;
+    private PageRemoverById $remover;
 
     public function __construct(
-        SQLitePageLoader $loader,
-        SQLitePageRemoverById $remover
+        PageLoader $loader,
+        PageRemoverById $remover
     ) {
         $this->loader = $loader;
         $this->remover = $remover;

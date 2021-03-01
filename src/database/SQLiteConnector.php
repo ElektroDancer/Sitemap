@@ -6,13 +6,13 @@ namespace elektrodancer\sitemap;
 
 use LazyPDO\LazyPDO;
 
-class SQLiteConnector
+class SQLiteConnector implements Connector
 {
     private LazyPDO $connection;
 
-    public function __construct(string $databaseName)
+    public function __construct(Name $databaseName)
     {
-        $path = $databaseName . '.sqlite';
+        $path = $databaseName->asString() . '.sqlite';
 
         if (!file_exists($path)) {
             $connection = new LazyPDO('sqlite:' . $path);

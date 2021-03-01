@@ -16,19 +16,19 @@ class Factory
         );
     }
 
-    public function createSitemapRemover(string $databaseName): SitemapRemover
+    public function createSitemapRemover(SitemapConfiguration $configuration): SitemapRemover
     {
         return new SitemapRemover(
-            $this->createSQLitePageLoader($databaseName),
-            $this->createSQLitePageRemoverById($databaseName)
+            $this->createPageLoader($configuration),
+            $this->createPageRemoverById($configuration)
         );
     }
 
-    public function createSitemapUpdater(string $databaseName): SitemapUpdater
+    public function createSitemapUpdater(SitemapConfiguration $configuration): SitemapUpdater
     {
         return new SitemapUpdater(
-            $this->createSQLitePageLoader($databaseName),
-            $this->createSQLitePageUpdaterById($databaseName)
+            $this->createPageLoader($configuration),
+            $this->createPageUpdaterById($configuration)
         );
     }
 
@@ -37,37 +37,51 @@ class Factory
         return new SitemapEntryBuilder();
     }
 
-    private function createSQLiteConnector(string $databaseName): SQLiteConnector
+    private function createConnector(SitemapConfiguration $configuration): Connector
     {
-        return new SQLiteConnector($databaseName);
+        if ($configuration->getTyp()->asString() === 'sqlite') {
+            return new SQLiteConnector($configuration->getName());
+        }
+
+        if ($configuration->getTyp()->asString() === 'mysql') {
+            return new MySQLConnector(
+                $configuration->getDatabaseName(),
+                $configuration->getDatabasePort(),
+                $configuration->getDatabaseHost(),
+                $configuration->getDatabaseUsername(),
+                $configuration->getDatabasePassword()
+            );
+        }
+
+        throw new InvalidTypeException('Database typ is not defined');
     }
 
-    private function createSQLitePageLoader(string $databaseName): SQLitePageLoader
+    private function createPageLoader(SitemapConfiguration $configuration): PageLoader
     {
-        return new SQLitePageLoader(
-            $this->createSQLiteConnector($databaseName),
+        return new PageLoader(
+            $this->createConnector($configuration),
             $this->createSitemapCollectionBuilder()
         );
     }
 
-    private function createSQLitePageRemoverById(string $databaseName): SQLitePageRemoverById
+    private function createPageRemoverById(SitemapConfiguration $configuration): PageRemoverById
     {
-        return new SQLitePageRemoverById(
-            $this->createSQLiteConnector($databaseName)
+        return new PageRemoverById(
+            $this->createConnector($configuration)
         );
     }
 
-    private function createSQLitePageUpdaterById(string $databaseName): SQLitePageUpdaterById
+    private function createPageUpdaterById(SitemapConfiguration $configuration): PageUpdaterById
     {
-        return new SQLitePageUpdaterById(
-            $this->createSQLiteConnector($databaseName)
+        return new PageUpdaterById(
+            $this->createConnector($configuration)
         );
     }
 
-    public function createSQLitePageWriter(string $databaseName): SQLitePageWriter
+    public function createPageWriter(SitemapConfiguration $configuration): PageWriter
     {
-        return new SQLitePageWriter(
-            $this->createSQLiteConnector($databaseName)
+        return new PageWriter(
+            $this->createConnector($configuration)
         );
     }
 

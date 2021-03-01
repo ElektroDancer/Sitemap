@@ -6,12 +6,12 @@ namespace elektrodancer\sitemap;
 
 class SitemapUpdater
 {
-    private SQLitePageLoader $loader;
-    private SQLitePageUpdaterById $updater;
+    private PageLoader $loader;
+    private PageUpdaterById $updater;
 
     public function __construct(
-        SQLitePageLoader $loader,
-        SQLitePageUpdaterById $updater
+        PageLoader $loader,
+        PageUpdaterById $updater
     ) {
         $this->loader = $loader;
         $this->updater = $updater;

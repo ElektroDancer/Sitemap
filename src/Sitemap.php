@@ -6,30 +6,20 @@ namespace elektrodancer\sitemap;
 
 class Sitemap
 {
-    private Path $path;
-    private string $name;
-
     private SitemapCreator $creator;
     private SitemapUpdater $updater;
-    private SQLitePageWriter $writer;
+    private PageWriter $writer;
     private SitemapRemover $remover;
     private SitemapEntryBuilder $builder;
 
-    /**
-     * @throws InvalidPathException
-     */
     public function __construct(
-        string $path,
-        string $name
+        SitemapConfiguration $configuration
     ) {
-        $this->path = Path::fromString($path);
-        $this->name = $name;
-
         $factory = new Factory();
         $this->creator = $factory->createSitemapCreator();
-        $this->updater = $factory->createSitemapUpdater($name);
-        $this->writer = $factory->createSQLitePageWriter($name);
-        $this->remover = $factory->createSitemapRemover($name);
+        $this->updater = $factory->createSitemapUpdater($configuration);
+        $this->writer = $factory->createPageWriter($configuration);
+        $this->remover = $factory->createSitemapRemover($configuration);
         $this->builder = $factory->createSitemapEntryBuilder();
     }
 

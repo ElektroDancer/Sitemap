@@ -6,12 +6,12 @@ namespace elektrodancer\sitemap;
 use LazyPDO\LazyPDO;
 use PDO;
 
-class SQLitePageLoader
+class PageLoader
 {
     private SitemapCollectionBuilder $builder;
     private LazyPDO $pdo;
 
-    public function __construct(SQLiteConnector $connector, SitemapCollectionBuilder $builder)
+    public function __construct(Connector $connector, SitemapCollectionBuilder $builder)
     {
         $this->pdo = $connector->getConnection();
         $this->builder = $builder;
