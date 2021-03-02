@@ -17,8 +17,20 @@ class SitemapRemover
         $this->remover = $remover;
     }
 
-    public function remove(): bool
+    public function remove(SitemapEntry $entry): bool
     {
+        $collection = $this->loader->load();
+
+        foreach ($collection->asArray() as $databaseEntry) {
+            if ($entry->getUrl()->asString() === $databaseEntry->getUrl()->asString()) {
+                $entry->setId($databaseEntry->getId());
+            }
+        }
+
+        if ($entry->getId()->isNull()) {
+            throw new SitemapRemoverException('given url could not find in database');
+        }
+
         return false;
     }
 }

@@ -8,11 +8,13 @@ use DOMDocument;
 
 class Factory
 {
-    public function createSitemapCreator(): SitemapCreator
+    public function createSitemapCreator(SitemapConfiguration $configuration): SitemapCreator
     {
         return new SitemapCreator(
             $this->createDOMDocument(),
-            $this->createPHPVariablesWrapper()
+            $this->createPHPVariablesWrapper(),
+            $this->createPageLoader($configuration),
+            $configuration->getPath()
         );
     }
 

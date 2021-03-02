@@ -16,7 +16,7 @@ class Sitemap
         SitemapConfiguration $configuration
     ) {
         $factory = new Factory();
-        $this->creator = $factory->createSitemapCreator();
+        $this->creator = $factory->createSitemapCreator($configuration);
         $this->updater = $factory->createSitemapUpdater($configuration);
         $this->writer = $factory->createPageWriter($configuration);
         $this->remover = $factory->createSitemapRemover($configuration);
@@ -25,7 +25,7 @@ class Sitemap
 
     public function create(): bool
     {
-        return false;
+        return $this->creator->create();
     }
 
     /**
@@ -35,7 +35,7 @@ class Sitemap
     {
         try {
             $entry = $this->builder->build($url);
-        } catch (InvalidLastModifyException $e) {
+        } catch (InvalidLastModifyException) {
             return false;
         }
 
@@ -44,21 +44,27 @@ class Sitemap
 
     /**
      * @throws InvalidUrlException
-     * @throws SitemapUpdateException
      */
     public function update(string $url): bool
     {
         try {
             $entry = $this->builder->build($url);
-        } catch (InvalidLastModifyException $e) {
+            return $this->updater->update($entry);
+        } catch (InvalidLastModifyException | SitemapUpdateException) {
             return false;
         }
-
-        return $this->updater->update($entry);
     }
 
+    /**
+     * @throws InvalidUrlException
+     */
     public function remove(string $url): bool
     {
-        return $this->remover->remove();
+        try {
+            $entry = $this->builder->build($url);
+            return $this->remover->remove($entry);
+        } catch (InvalidLastModifyException | SitemapRemoverException) {
+            return false;
+        }
     }
 }

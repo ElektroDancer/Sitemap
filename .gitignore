@@ -4,4 +4,3 @@ composer.lock
 public
 vendor
 tests/reports
-src/config

@@ -11,38 +11,45 @@ class SitemapCreator
 {
     private DOMDocument $dom;
     private PHPVariablesWrapper $variablesWrapper;
+    private PageLoader $loader;
+    private Path $path;
 
     public function __construct(
         DOMDocument $dom,
-        PHPVariablesWrapper $variablesWrapper
+        PHPVariablesWrapper $variablesWrapper,
+        PageLoader $loader,
+        Path $path
     ) {
         $this->dom = $dom;
         $this->variablesWrapper = $variablesWrapper;
+        $this->loader = $loader;
+        $this->path = $path;
     }
 
-    public function create(SitemapCollection $collection, Path $path): bool
+    public function create(): bool
     {
-        $root = $this->dom->createElement('urlset');
-        $root->setAttribute('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
-        $this->dom->appendChild($root);
+        $collection = $this->loader->load();
 
-        foreach ($collection->asArray() as $value) {
-            $root->appendChild($entry = $this->dom->createElement('url'));
-            $entry->appendChild($this->dom->createElement('loc', (string)$value->getUrl()));
-            $entry->appendChild($this->dom->createElement('lastmod', (string)$value->getLastModify()));
+        $xmlRoot = $this->dom->createElement('urlset');
+        $xmlRoot->setAttribute('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
+        $this->dom->appendChild($xmlRoot);
+
+        foreach ($collection->asArray() as $entry) {
+            $xmlRoot->appendChild($xmlEntry = $this->dom->createElement('url'));
+            $xmlEntry->appendChild($this->dom->createElement('loc', (string)$entry->getUrl()));
+            $xmlEntry->appendChild($this->dom->createElement('lastmod', (string)$entry->getLastModify()));
         }
 
         try {
-            $file = FileHandler::fromParameters($path, $this->variablesWrapper);
-        } catch (InvalidArgumentException $e) {
+            $file = FileHandler::fromParameters($this->path, $this->variablesWrapper);
+        } catch (InvalidArgumentException) {
             return false;
         }
 
         try {
-            $file->save($this->dom->saveXML());
-        } catch (InvalidArgumentException $e) {
+            return $file->save($this->dom->saveXML());
+        } catch (InvalidArgumentException) {
             return false;
         }
-        return true;
     }
 }
