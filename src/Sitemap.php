@@ -13,7 +13,7 @@ class Sitemap
     private SitemapEntryBuilder $builder;
 
     public function __construct(
-        SitemapConfiguration $configuration
+        Configuration $configuration
     ) {
         $factory = new Factory();
         $this->creator = $factory->createSitemapCreator($configuration);

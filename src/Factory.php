@@ -8,7 +8,7 @@ use DOMDocument;
 
 class Factory
 {
-    public function createSitemapCreator(SitemapConfiguration $configuration): SitemapCreator
+    public function createSitemapCreator(Configuration $configuration): SitemapCreator
     {
         return new SitemapCreator(
             $this->createDOMDocument(),
@@ -18,7 +18,7 @@ class Factory
         );
     }
 
-    public function createSitemapRemover(SitemapConfiguration $configuration): SitemapRemover
+    public function createSitemapRemover(Configuration $configuration): SitemapRemover
     {
         return new SitemapRemover(
             $this->createPageLoader($configuration),
@@ -26,7 +26,7 @@ class Factory
         );
     }
 
-    public function createSitemapUpdater(SitemapConfiguration $configuration): SitemapUpdater
+    public function createSitemapUpdater(Configuration $configuration): SitemapUpdater
     {
         return new SitemapUpdater(
             $this->createPageLoader($configuration),
@@ -39,26 +39,36 @@ class Factory
         return new SitemapEntryBuilder();
     }
 
-    private function createConnector(SitemapConfiguration $configuration): Connector
+    private function createConnector(Configuration $configuration): Connector
     {
-        if ($configuration->getTyp()->asString() === 'sqlite') {
-            return new SQLiteConnector($configuration->getName());
+        if ($configuration->getDatabaseTyp()->asString() === 'sqlite') {
+            return $this->createSQLiteConnector($configuration);
         }
 
-        if ($configuration->getTyp()->asString() === 'mysql') {
-            return new MySQLConnector(
-                $configuration->getDatabaseName(),
-                $configuration->getDatabasePort(),
-                $configuration->getDatabaseHost(),
-                $configuration->getDatabaseUsername(),
-                $configuration->getDatabasePassword()
-            );
+        if ($configuration->getDatabaseTyp()->asString() === 'mysql') {
+            return $this->createMySQLConnector($configuration);
         }
 
         throw new InvalidTypeException('Database typ is not defined');
     }
 
-    private function createPageLoader(SitemapConfiguration $configuration): PageLoader
+    private function createSQLiteConnector(SQLiteConfiguration $configuration): SQLiteConnector
+    {
+        return new SQLiteConnector($configuration->getName());
+    }
+
+    private function createMySQLConnector(MySQLConfiguration $configuration): MySQLConnector
+    {
+        return new MySQLConnector(
+            $configuration->getDatabaseName(),
+            $configuration->getDatabasePort(),
+            $configuration->getDatabaseHost(),
+            $configuration->getDatabaseUsername(),
+            $configuration->getDatabasePassword()
+        );
+    }
+
+    private function createPageLoader(Configuration $configuration): PageLoader
     {
         return new PageLoader(
             $this->createConnector($configuration),
@@ -66,21 +76,21 @@ class Factory
         );
     }
 
-    private function createPageRemoverById(SitemapConfiguration $configuration): PageRemoverById
+    private function createPageRemoverById(Configuration $configuration): PageRemoverById
     {
         return new PageRemoverById(
             $this->createConnector($configuration)
         );
     }
 
-    private function createPageUpdaterById(SitemapConfiguration $configuration): PageUpdaterById
+    private function createPageUpdaterById(Configuration $configuration): PageUpdaterById
     {
         return new PageUpdaterById(
             $this->createConnector($configuration)
         );
     }
 
-    public function createPageWriter(SitemapConfiguration $configuration): PageWriter
+    public function createPageWriter(Configuration $configuration): PageWriter
     {
         return new PageWriter(
             $this->createConnector($configuration)
