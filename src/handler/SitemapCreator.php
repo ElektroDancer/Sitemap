@@ -13,17 +13,20 @@ class SitemapCreator
     private PHPVariablesWrapper $variablesWrapper;
     private PageLoader $loader;
     private Path $path;
+    private Name $name;
 
     public function __construct(
         DOMDocument $dom,
         PHPVariablesWrapper $variablesWrapper,
         PageLoader $loader,
-        Path $path
+        Path $path,
+        Name $name
     ) {
         $this->dom = $dom;
         $this->variablesWrapper = $variablesWrapper;
         $this->loader = $loader;
         $this->path = $path;
+        $this->name = $name;
     }
 
     public function create(): bool
@@ -41,7 +44,7 @@ class SitemapCreator
         }
 
         try {
-            $file = FileHandler::fromParameters($this->path, $this->variablesWrapper);
+            $file = FileHandler::fromParameters($this->path, $this->name, $this->variablesWrapper);
         } catch (InvalidArgumentException) {
             return false;
         }

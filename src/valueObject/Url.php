@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace elektrodancer\sitemap;
@@ -18,6 +19,7 @@ class Url
     public static function fromString($value): Url
     {
         self::ensureIsString($value);
+        self::ensureIsValidateUrl($value);
 
         return new Url($value);
     }
@@ -31,6 +33,13 @@ class Url
     {
         if (!is_string($value)) {
             throw new InvalidUrlException('The value of Url is not a string');
+        }
+    }
+
+    private static function ensureIsValidateUrl(string $value): void
+    {
+        if (!filter_var($value, FILTER_VALIDATE_URL)) {
+            throw new InvalidUrlException('The value of Url is not a validate Url');
         }
     }
 

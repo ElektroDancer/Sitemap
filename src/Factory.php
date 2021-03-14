@@ -14,7 +14,8 @@ class Factory
             $this->createDOMDocument(),
             $this->createPHPVariablesWrapper(),
             $this->createPageLoader($configuration),
-            $configuration->getPath()
+            $configuration->getPath(),
+            $configuration->getName()
         );
     }
 
@@ -37,6 +38,14 @@ class Factory
     public function createSitemapEntryBuilder(): SitemapEntryBuilder
     {
         return new SitemapEntryBuilder();
+    }
+
+    public function createSitemapEntryEditorBuilder(Configuration $configuration): SitemapEntryEditorBuilder
+    {
+        return new SitemapEntryEditorBuilder(
+            $this->createPageLoader($configuration),
+            $this->createSitemapEntryBuilder()
+        );
     }
 
     private function createConnector(Configuration $configuration): Connector

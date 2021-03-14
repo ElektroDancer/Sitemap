@@ -8,23 +8,28 @@ use InvalidArgumentException;
 
 class FileHandler
 {
-    private Path $path;
     private PHPVariablesWrapper $variablesWrapper;
+    private Path $path;
+    private Name $name;
 
     private function __construct(
         Path $path,
+        Name $name,
         PHPVariablesWrapper $variablesWrapper
     ) {
         $this->path = $path;
+        $this->name = $name;
         $this->variablesWrapper = $variablesWrapper;
     }
 
     public static function fromParameters(
         Path $path,
+        Name $name,
         PHPVariablesWrapper $variablesWrapper
     ): FileHandler {
         return new FileHandler(
             $path,
+            $name,
             $variablesWrapper
         );
     }
@@ -32,7 +37,7 @@ class FileHandler
     public function load(): string
     {
         try {
-            $data = $this->variablesWrapper->getFile($this->path);
+            $data = $this->variablesWrapper->getFile($this->path, $this->name);
         } catch (InvalidArgumentException) {
             throw new InvalidArgumentException('File could not be found');
         }
@@ -43,7 +48,7 @@ class FileHandler
     public function save(string $data): bool
     {
         try {
-            $this->variablesWrapper->putFile($this->path, $data);
+            $this->variablesWrapper->putFile($this->path, $this->name, $data);
         } catch (InvalidArgumentException) {
             throw new InvalidArgumentException('File could not be written');
         }
