@@ -24,6 +24,7 @@ class SitemapUpdater
         foreach ($collection->asArray() as $databaseEntry) {
             if ($entry->getUrl()->asString() === $databaseEntry->getUrl()->asString()) {
                 $entry->setId($databaseEntry->getId());
+                break;
             }
         }
 

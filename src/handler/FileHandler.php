@@ -33,7 +33,7 @@ class FileHandler
     {
         try {
             $data = $this->variablesWrapper->getFile($this->path);
-        } catch (InvalidArgumentException $e) {
+        } catch (InvalidArgumentException) {
             throw new InvalidArgumentException('File could not be found');
         }
 
@@ -44,7 +44,7 @@ class FileHandler
     {
         try {
             $this->variablesWrapper->putFile($this->path, $data);
-        } catch (InvalidArgumentException $e) {
+        } catch (InvalidArgumentException) {
             throw new InvalidArgumentException('File could not be written');
         }
 

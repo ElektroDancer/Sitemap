@@ -48,6 +48,6 @@ class Id
 
     public function isNull(): bool
     {
-        return is_int($this->value);
+        return !is_int($this->value);
     }
 }

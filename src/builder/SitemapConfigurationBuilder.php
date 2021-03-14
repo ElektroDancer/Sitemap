@@ -33,7 +33,7 @@ class SitemapConfigurationBuilder
                 [
                     'name' => Name::fromString($name),
                     'database' => [
-                        'db_name' => Name::fromString($databaseName),
+                        'name' => Name::fromString($databaseName),
                         'typ' => Typ::fromString($databaseTyp),
                         'port' => Port::fromInt($databasePort),
                         'host' => Host::fromString($databaseHost),

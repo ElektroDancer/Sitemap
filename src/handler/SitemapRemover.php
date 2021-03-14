@@ -24,6 +24,7 @@ class SitemapRemover
         foreach ($collection->asArray() as $databaseEntry) {
             if ($entry->getUrl()->asString() === $databaseEntry->getUrl()->asString()) {
                 $entry->setId($databaseEntry->getId());
+                break;
             }
         }
 
@@ -31,6 +32,6 @@ class SitemapRemover
             throw new SitemapRemoverException('given url could not find in database');
         }
 
-        return false;
+        return $this->remover->remove($entry);
     }
 }

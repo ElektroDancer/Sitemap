@@ -14,4 +14,17 @@ class PageRemoverById
     {
         $this->pdo = $connector->getConnection();
     }
+
+    public function remove(SitemapEntry $entry): bool
+    {
+        $statement = $this->pdo->prepare($this->getPreparedStatement());
+        $statement->bindValue(':id', $entry->getId()->asInt());
+
+        return $statement->execute();
+    }
+
+    private function getPreparedStatement(): string
+    {
+        return 'DELETE FROM page WHERE id = :id';
+    }
 }
