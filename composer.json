@@ -1,20 +1,29 @@
 {
   "name": "elektrodancer/sitemap",
   "description": "A sitemap generator written in PHP",
+  "type": "library",
   "license": "GPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "ElektroDancer",
+      "email": "elektrodanceripod@gmail.com"
+    }
+  ],
   "autoload": {
     "classmap": [
       "src/"
     ]
   },
   "require": {
+    "php": ">=7.4",
     "ext-mbstring": "*",
     "ext-dom": "*",
     "ext-pdo": "*",
     "lazypdo/lazypdo": "^2.0"
   },
   "require-dev": {
-    "roave/security-advisories": "dev-master",
+    "roave/security-advisories": "dev-latest",
     "phpunit/phpunit": "^8"
-  }
+  },
+  "minimum-stability": "dev"
 }
